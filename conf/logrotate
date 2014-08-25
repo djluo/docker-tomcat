@@ -1,0 +1,9 @@
+/home/fengqu/global/gmtool/logs/catalina.out {
+  copytruncate
+  daily
+  rotate 30
+  compress
+  notifempty
+  nomail
+  missingok
+}

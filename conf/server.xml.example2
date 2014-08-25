@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="9999" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="off" />
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <Service name="APP">
+    <Connector port="8080"
+      protocol="HTTP/1.1"
+      connectionTimeout="20000"
+      redirectPort="8443"
+      server="Xweb"
+      URIEncoding="UTF-8"
+      />
+
+    <Engine name="Tomcat" defaultHost="localhost">
+      <Host name="localhost"
+        appBase="/tomcat/webapps/"
+        unpackWARs="true"
+        autoDeploy="false"
+        xmlValidation="false"
+        xmlNamespaceAware="false">
+        <Context path="/" docBase="/tomcat/webapps"/>
+        <Valve className="org.apache.catalina.valves.AccessLogValve"
+          directory="/tomcat/logs"
+          prefix="access."
+          suffix=".log"
+          pattern="common"
+          resolveHosts="false"/>
+      </Host>
+    </Engine>
+
+  </Service>
+</Server>
