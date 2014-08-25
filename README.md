@@ -4,12 +4,12 @@
 ## 目录结构约定：
 约定目的: 与docker无关,自用.
 
-|  目录                         |             用途                                                |
-|-------------------------------|-----------------------------------------------------------------|
-|/home/coop/appname/conf/    |Tomcat的主配置包含server.xml/logging.properties/java-options.conf等 |
-|/home/coop/appname/log/     |当前应用产生产生的统计类业务日志                                    |
-|/home/coop/appname/logs/    |Tomcat自身的日志,如:catalina.out/catalina.2014-08-22.log等          |
-|/home/coop/appname/webapps/ |当前应用的主代码:jsp/jar等文件                                      |
+|  目录                      |             用途                                           |
+|----------------------------|------------------------------------------------------------|
+|/home/coop/appname/conf/    |主配置包含server.xml/logging.properties/java-options.conf等 |
+|/home/coop/appname/log/     |当前应用产生产生的统计类业务日志                            |
+|/home/coop/appname/logs/    |Tomcat自身的日志,如:catalina.out/catalina.2014-08-22.log等  |
+|/home/coop/appname/webapps/ |当前应用的主代码:jsp/jar等文件                              |
 
 ## 创建镜像：
 1. 获取：
@@ -51,12 +51,12 @@ sudo mv -v /home/coop/appname/server.xml{.example2,}
 </pre>
 5. 部署应用的代码至 `/home/coop/appname/webapps`
 6. 启动
-<pre>
+```shell
 cd /home/coop/appname/
 sudo docker run -ti -p 8080:8080       \
     -v `pwd`/conf:/tomcat/conf/:ro     \
     -v `pwd`/log/:/tomcat/log/         \
     -v `pwd`/logs/:/tomcat/logs/       \
     -v `pwd`/webapps/:/tomcat/webapps/ \
-    --name appname tomcat $@
-</pre>
+    --name appname tomcat
+```
