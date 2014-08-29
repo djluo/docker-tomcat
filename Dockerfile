@@ -7,8 +7,8 @@ MAINTAINER djluo <dj.luo@baoyugame.com>
 
 ENV TomcatVer 7.0.55
 
-#RUN wget --quiet -O /apache-tomcat-${TomcatVer}.tar.gz     \
-#            http://mirrors.cnnic.cn/apache/tomcat/tomcat-7/v${TomcatVer}/bin/apache-tomcat-${TomcatVer}.tar.gz
+RUN wget --quiet -O /apache-tomcat-${TomcatVer}.tar.gz     \
+            http://mirrors.cnnic.cn/apache/tomcat/tomcat-7/v${TomcatVer}/bin/apache-tomcat-${TomcatVer}.tar.gz
 RUN wget --quiet -O /apache-tomcat-${TomcatVer}.tar.gz.md5 \
             https://www.apache.org/dist/tomcat/tomcat-7/v${TomcatVer}/bin/apache-tomcat-${TomcatVer}.tar.gz.md5
 RUN wget --quiet -O /apache-tomcat-${TomcatVer}.tar.gz.asc \
