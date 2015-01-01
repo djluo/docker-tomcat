@@ -26,7 +26,7 @@
         xmlNamespaceAware="false">
         <Context path="/" docBase="/tomcat/webapps"/>
         <Valve className="org.apache.catalina.valves.AccessLogValve"
-          directory="/data/logs"
+          directory="/tomcat/logs"
           prefix="access."
           suffix=".log"
           pattern="common"
