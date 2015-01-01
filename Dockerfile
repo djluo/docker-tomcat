@@ -1,18 +1,17 @@
 # Tomcat
 #
-# VERSION 2
+# VERSION 4
 
-FROM       java:1
+FROM       docker.xlands-inc.com/baoyu/by-java
 MAINTAINER djluo <dj.luo@baoyugame.com>
 
-ENV TomcatVer 7.0.55
+ADD ./entrypoint.pl        /entrypoint.pl
+ADD ./cmd.sh               /tomcat/cmd.sh
 
-ADD ./setup/   /setup/
-RUN /bin/bash  /setup/setup.sh
+ENV TomcatVer 7.0.57
+ADD ./apache-tomcat-7.0.57 /apache-tomcat-7.0.57
 
-WORKDIR        /tomcat/
-
-EXPOSE 8080
 VOLUME [ "/tomcat/log", "/tomcat/logs/", "/tomcat/conf/", "/tomcat/webapps" ]
 
-CMD ["/tomcat/run.sh","run"]
+ENTRYPOINT ["/entrypoint.pl"]
+CMD        ["/tomcat/cmd.sh"]

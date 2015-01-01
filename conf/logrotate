@@ -1,4 +1,4 @@
-/home/fengqu/global/gmtool/logs/catalina.out {
+/tomcat/logs/catalina.out {
   copytruncate
   daily
   rotate 30

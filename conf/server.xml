@@ -17,13 +17,16 @@
 
     <Engine name="Tomcat" defaultHost="localhost">
       <Host name="localhost"
-        appBase="/tomcat/webapps/"
+        appBase="/tomcat/work/appbase/"
+        xmlBase="/tomcat/work/xmlbase/"
+        workDir="/tomcat/work/workdir/"
         unpackWARs="true"
-        autoDeploy="false"
+        autoDeploy="true"
         xmlValidation="false"
         xmlNamespaceAware="false">
+        <Context path="/" docBase="/tomcat/webapps"/>
         <Valve className="org.apache.catalina.valves.AccessLogValve"
-          directory="/tomcat/logs"
+          directory="/data/logs"
           prefix="access."
           suffix=".log"
           pattern="common"
