@@ -1,5 +1,4 @@
 .git
-conf
 *.gz
 *.bz2
 README.md
