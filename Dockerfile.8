@@ -1,0 +1,16 @@
+# Tomcat
+#
+# VERSION 4
+
+FROM       docker.xlands-inc.com/baoyu/java8
+MAINTAINER djluo <dj.luo@baoyugame.com>
+
+ENV TomcatVer 8.0.23
+ADD ./apache-tomcat-8.0.23 /apache-tomcat-8.0.23
+
+ADD ./entrypoint.pl        /entrypoint.pl
+ADD ./cmd.sh               /tomcat/cmd.sh
+ADD ./conf                 /tomcat/conf
+
+ENTRYPOINT ["/entrypoint.pl"]
+CMD        ["/tomcat/cmd.sh"]
