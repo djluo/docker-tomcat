@@ -2,7 +2,7 @@
 # vim:set et ts=2 sw=2:
 
 # Author : djluo
-# version: 1.0(20141227)
+# version: 3.0(20150625)
 #
 # 初衷: 每个容器用不同用户运行程序,已方便在宿主中直观的查看.
 # 需求: 1. 动态添加用户,不能将添加用户的动作写死到images中.
@@ -36,7 +36,9 @@ system("chown docker.docker -R /tomcat/logs") if ( -d "/tomcat/logs" );
 # 切换当前运行用户,先切GID.
 #$GID = $EGID = $gid;
 #$UID = $EUID = $uid;
-$( = $) = $gid; die "switch gid error\n" if $!;
-$< = $> = $uid; die "switch uid error\n" if $!;
+$( = $) = $gid; die "switch gid error\n" if $gid != $(;
+$< = $> = $uid; die "switch uid error\n" if $uid != $<;
+
+$ENV{'HOME'} = "/home/docker";
 
 exec(@ARGV);
