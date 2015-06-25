@@ -17,6 +17,13 @@ LOG_DIR="${current_dir}/log/"
 
 export CATALINA_HOME CONFIG CATALINA_OUT LOGGING_CONFIG LOG_DIR
 
+# 计划任务
+cat<<\EOF > /tmp/crontab
+10 2 * * * (/tomcat/gzip.sh >/dev/null 2>&1)
+EOF
+[ -f "${current_dir}/conf/crontab" ] && cat ${current_dir}/conf/crontab >> /tmp/crontab
+crontab /tmp/crontab && rm -f /tmp/crontab
+
 # java参数等配置
 [ -f  "${JDK_OPT}" ] && source "${JDK_OPT}"
 
