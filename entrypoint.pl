@@ -18,6 +18,9 @@ my $gid = 1000;
 
 $uid = $gid = $ENV{'User_Id'} if $ENV{'User_Id'} =~ /\d+/;
 
+system("rm", "-f", "/run/crond.pid") if ( -f "/run/crond.pid" );
+system("/usr/sbin/cron");
+
 unless (getpwuid("$uid")){
   system("/usr/sbin/useradd", "-U", "-u $uid", "-m", "docker");
   system("mkdir -p /tomcat/work/appbase");
