@@ -2,7 +2,7 @@
 #
 # VERSION 4
 
-FROM       docker.xlands-inc.com/baoyu/by-java
+FROM       docker.xlands-inc.com/baoyu/java
 MAINTAINER djluo <dj.luo@baoyugame.com>
 
 ENV TomcatVer 7.0.57
