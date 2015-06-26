@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <Service name="APP">
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443"
+               server="Xweb"
+               URIEncoding="UTF-8"
+               />
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <Host name="localhost"
+            appBase="/tomcat/work/appbase/"
+            xmlBase="/tomcat/work/xmlbase/"
+            workDir="/tomcat/work/workdir/"
+            unpackWARs="true"
+            autoDeploy="true"
+        >
+        <Context path="/" docBase="/tomcat/webapps"/>
+        <Valve className="org.apache.catalina.valves.AccessLogValve"
+               directory="/tomcat/logs"
+               prefix="access"
+               suffix=".log"
+               pattern="common"
+        />
+      </Host>
+    </Engine>
+  </Service>
+</Server>

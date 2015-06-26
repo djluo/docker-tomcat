@@ -11,7 +11,12 @@ ADD ./apache-tomcat-8.0.23 /apache-tomcat-8.0.23
 ADD ./entrypoint.pl /entrypoint.pl
 ADD ./gzip.sh       /tomcat/gzip.sh
 ADD ./cmd.sh        /tomcat/cmd.sh
-ADD ./conf          /tomcat/conf
+
+ADD ./conf/server.xml.8       /tomcat/conf/server.xml
+ADD ./conf/java-options.conf  /tomcat/conf/java-options.conf
+ADD ./conf/logging.properties /tomcat/conf/logging.properties
+
+RUN chmod 644 /apache-tomcat-8.0.23/conf/*
 
 ENTRYPOINT ["/entrypoint.pl"]
 CMD        ["/tomcat/cmd.sh"]
