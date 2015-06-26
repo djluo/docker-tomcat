@@ -6,4 +6,5 @@ current_dir=`dirname $0`
 current_dir=`readlink -f $current_dir`
 cd ${current_dir} && export current_dir
 
-find ./logs -name "std*[^z]" -mtime +1 -exec gzip {} \;
+find ./logs -name "std*[^z]"      -mtime +1 -exec gzip {} \;
+find ./logs -name "catalina*[^z]" -mtime +1 -exec gzip {} \;

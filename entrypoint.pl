@@ -41,4 +41,9 @@ $< = $> = $uid; die "switch uid error\n" if $uid != $<;
 
 $ENV{'HOME'} = "/home/docker";
 
+my $min = int(rand(60));
+open(CRON,"|/usr/bin/crontab") or die "crontab error?";
+print CRON ("$min 02 * * * (/tomcat/gzip.sh >/dev/null 2>&1)\n");
+close(CRON);
+
 exec(@ARGV);
