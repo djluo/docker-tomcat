@@ -10,11 +10,13 @@
 # 问题: 如用shell的su命令切换,会遗留一个su本身的进程.
 # 最终: 使用perl脚本进行添加和切换操作. 从环境变量User_Id获取用户信息.
 
+use Cwd;
 use strict;
 #use English '-no_match_vars';
 
 my $uid = 1000;
 my $gid = 1000;
+my $pwd = cwd();
 
 $uid = $gid = $ENV{'User_Id'} if $ENV{'User_Id'} =~ /\d+/;
 
@@ -30,8 +32,22 @@ unless (getpwuid("$uid")){
   system("chown docker.docker -R /tomcat/work");
 }
 
-system("chown docker.docker -R /tomcat/log")  if ( -d "/tomcat/log" );
-system("chown docker.docker -R /tomcat/logs") if ( -d "/tomcat/logs" );
+my @log_dirs = ( "/tomcat/log", "/tomcat/logs", "$pwd/log", "$pwd/logs" );
+foreach my $dir ( @log_dirs ){
+  system("mkdir", "-p", "$dir")               unless ( -d "$dir" );
+  system("chown", "docker.docker", "-R", "$dir")  if ( -d "$dir" );
+}
+
+system("sed", "-i", "s%^current_dir=/tomcat%current_dir=$pwd%", "/tomcat/cmd.sh");
+system("sed", "-i", "s%^current_dir=/tomcat%current_dir=$pwd%", "/tomcat/gzip.sh");
+system("sed", "-i", "s%= /tomcat%= $pwd%", "/tomcat/conf/logging.properties");
+
+my @links = ( "cmd.sh", "gzip.sh", "webapps", "conf" );
+foreach my $link ( @links ){
+  system("ln", "-sv", "/tomcat/$link");
+}
+
+system("/init.sh") if ( -x "/init.sh" );
 
 # 切换当前运行用户,先切GID.
 #$GID = $EGID = $gid;

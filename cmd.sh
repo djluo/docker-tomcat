@@ -1,18 +1,22 @@
 #!/bin/bash
 # vim:set et ts=2 sw=2:
 
-# 切换到当前目录
-current_dir=`dirname $0`
-current_dir=`readlink -f $current_dir`
-cd ${current_dir} && export current_dir
+## 切换到当前目录
+#current_dir=`dirname $0`
+#current_dir=`readlink -f $current_dir`
+#cd ${current_dir} && export current_dir
+
+# change by /entrypoint.pl
+current_dir=/tomcat
+# change by /entrypoint.pl
 
 # 常量
 CATALINA_HOME="/apache-tomcat-${TomcatVer}"
-CONFIG="${current_dir}/conf/server.xml"
-JDK_OPT="${current_dir}/conf/java-options.conf"
+CONFIG="/tomcat/conf/server.xml"
+JDK_OPT="/tomcat/conf/java-options.conf"
 CATALINA_OUT="${current_dir}/logs/catalina.out"
-CATALINA_TMPDIR="${current_dir}/work/temp/"
-LOGGING_CONFIG="-Djava.util.logging.config.file=${current_dir}/conf/logging.properties"
+CATALINA_TMPDIR="/tomcat/work/temp/"
+LOGGING_CONFIG="-Djava.util.logging.config.file=/tomcat/conf/logging.properties"
 LOG_DIR="${current_dir}/log/"
 
 export CATALINA_HOME CONFIG CATALINA_OUT LOGGING_CONFIG LOG_DIR CATALINA_TMPDIR
