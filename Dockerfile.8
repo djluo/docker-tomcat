@@ -5,18 +5,19 @@
 FROM       docker.xlands-inc.com/baoyu/java8
 MAINTAINER djluo <dj.luo@baoyugame.com>
 
-ENV TomcatVer 8.0.32
-ADD ./apache-tomcat-8.0.32 /apache-tomcat-8.0.32
+ENV  TomcatVer 8.0.32
+COPY ./apache-tomcat-${TomcatVer} /apache-tomcat-${TomcatVer}
 
-ADD ./entrypoint.pl /entrypoint.pl
-ADD ./gzip.sh       /tomcat/gzip.sh
-ADD ./cmd.sh        /tomcat/cmd.sh
+COPY ./conf/server.xml.8       /tomcat/conf/server.xml
+COPY ./conf/logging.properties /tomcat/conf/logging.properties
 
-ADD ./conf/server.xml.8       /tomcat/conf/server.xml
-#ADD ./conf/java-options.conf  /tomcat/conf/java-options.conf
-ADD ./conf/logging.properties /tomcat/conf/logging.properties
+RUN chmod 644 /apache-tomcat-${TomcatVer}/conf/* \
+    && sed -i 's/\(.*\)\(...$LOGGING_CONFIG...\)\(.*\)$JAVA_OPTS\(.*\)/\1$JAVA_OPTS \2\3\4/' \
+    /apache-tomcat-${TomcatVer}/bin/catalina.sh
 
-RUN chmod 644 /apache-tomcat-8.0.32/conf/*
+COPY ./cmd.sh        /tomcat/cmd.sh
+COPY ./gzip.sh       /tomcat/gzip.sh
+COPY ./entrypoint.pl /entrypoint.pl
 
 ENTRYPOINT ["/entrypoint.pl"]
 CMD        ["/tomcat/cmd.sh"]
